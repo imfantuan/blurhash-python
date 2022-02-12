@@ -30,7 +30,10 @@ class BlurhashDecodeError(Exception):
 
 
 def encode(image_file, x_components, y_components):
-    image = Image.open(image_file).convert('RGB')
+    if 'PIL.Image.Image' in str(type(image_file)):
+        image = image_file
+    else:
+        image = Image.open(image_file).convert('RGB')
     red_band = image.getdata(band=0)
     green_band = image.getdata(band=1)
     blue_band = image.getdata(band=2)
